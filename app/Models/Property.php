@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
-use Laravel\Scout\Searchable;
-use Laravel\Scout\EngineManager;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Property extends Model
 {
     use HasFactory;
-    use Searchable;
 
     protected $table = "properties";
 
