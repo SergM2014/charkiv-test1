@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Database\QueryException;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -59,11 +60,23 @@ class Handler extends ExceptionHandler
                         "success" => false,
                         "message" => "Attention! something went wrong!!!"
                      ]
-                ], 
+                ],
             400);
         }
 
-       
+        if ($e instanceof ValidationException) {
+            return response()->json(
+                [
+                    "data" =>[],
+                    "utilities" =>[
+                        "success" => false,
+                        "message" => "All Fields are empty!!!"
+                     ]
+                ],
+            400);
+        }
+
+
         return parent::render($request, $e);
     }
 }

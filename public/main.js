@@ -18,6 +18,7 @@ function search(){
 	resultsMessage.classList.remove('alert-success', 'alert-danger');
 	resultsTable.classList.add('d-none');
 	resultsOutput.innerHTML = '';
+  let alertClass = '';
 
 	fetch('/api/search',
             {
@@ -29,16 +30,14 @@ function search(){
             .then(json => {
 
             	resultsMessage.classList.remove('d-none')
-
             	resultsMessage.innerHTML = json.utilities.message;
 
             	let alertClass = json.utilities.success ? 'alert-success' : 'alert-danger';
-				resultsMessage.classList.add(alertClass);
+        			resultsMessage.classList.add(alertClass);
 
-				let counter=1;
+				      let counter=1;
             	for(let item of json.data) {
             		let rowElement = document.createElement('tr');
-
 
             		rowElement.innerHTML =
             		`<th scope="row">${counter++}</th>
@@ -52,7 +51,8 @@ function search(){
             		resultsOutput.appendChild(rowElement);
             	}
 
-            	resultsTable.classList.remove('d-none');
+              if(Object.keys(json.data).length > 0)
+              	resultsTable.classList.remove('d-none');
 
             })
 }

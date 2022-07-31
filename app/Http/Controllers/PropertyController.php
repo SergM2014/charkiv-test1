@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Interfaces\PropertyRepositoryInterface;
 use App\Http\Resources\PropertyCollection;
+use Illuminate\Validation\ValidationException;
+use App\Interfaces\PropertyRepositoryInterface;
 
 class PropertyController extends Controller
 {
@@ -12,6 +13,10 @@ class PropertyController extends Controller
 
     public function search(): PropertyCollection
     {
+      if($this->checkIfEmptyAllInputs())  throw ValidationException::withMessages([
+          'Error' => 'all fields are empty!'
+      ]);
+
         $items = $this->propertyRepository->search();
 
         if($items->isEmpty()) { $success = false; $message = 'Failure! Nothing found!'; };
@@ -24,5 +29,18 @@ class PropertyController extends Controller
                     ],
                 ]
             );
+    }
+
+    private function checkIfEmptyAllInputs(): bool
+    {
+      foreach (request()->all() as $key => $value) {
+        if(empty($value)) {
+           $emptyInput = true;
+         } else {
+            $emptyInput = false; break;
+          }
+      }
+
+      return $emptyInput;
     }
 }
