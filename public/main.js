@@ -18,7 +18,7 @@ function search(){
 	resultsMessage.classList.remove('alert-success', 'alert-danger');
 	resultsTable.classList.add('d-none');
 	resultsOutput.innerHTML = '';
-	
+
 	fetch('/api/search',
             {
                 method: "POST",
@@ -27,9 +27,9 @@ function search(){
             })
             .then(responce => responce.json())
             .then(json => {
-            	
+
             	resultsMessage.classList.remove('d-none')
-            	
+
             	resultsMessage.innerHTML = json.utilities.message;
 
             	let alertClass = json.utilities.success ? 'alert-success' : 'alert-danger';
@@ -39,15 +39,15 @@ function search(){
             	for(let item of json.data) {
             		let rowElement = document.createElement('tr');
 
-            		
-            		rowElement.innerHTML = 
+
+            		rowElement.innerHTML =
             		`<th scope="row">${counter++}</th>
-            			<td>${item.name}</td>
-        				<td>${item.price}</td>
-        				<td>${item.bedrooms}</td>
-        				<td>${item.bathrooms}</td>
-        				<td>${item.storeys}</td
-        				<td>${item.garages}</td>`
+            		 <td>${item.name}</td>
+  				       <td>${item.price}</td>
+        				 <td>${item.bedrooms}</td>
+        			  	<td>${item.bathrooms}</td>
+        			  	<td>${item.storeys}</td>
+        		  		<td>${item.garages}</td>`
 
             		resultsOutput.appendChild(rowElement);
             	}

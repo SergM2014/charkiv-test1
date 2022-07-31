@@ -59,11 +59,11 @@
         </form>
 
         <div id="results">
-            
-            <div id="resultsMessage" class="alert d-none" role="alert">
-              
+
+            <div id="resultsMessage" class="alert d-none my-2" role="alert">
+
             </div>
-            
+
                 <table id="resultsTable" class="table table-striped d-none">
                   <thead>
                     <tr>
@@ -76,14 +76,14 @@
                       <th scope="col">Garages</th>
                     </tr>
                   </thead>
-                  <tbody id="resultsOutput"> 
+                  <tbody id="resultsOutput">
                   </tbody>
                 </table>
-     
+
         </div>
 
     </body>
 
     <script src="/main.js"></script>
-    
+
 </html>
