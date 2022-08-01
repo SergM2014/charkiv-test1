@@ -17,12 +17,17 @@ go to http://localhost
 
  and is ready for usage.
 
+ how to stop ./vendor/bin/sail stop
+
   I should point out the searching of price range.
- there are two fields minPrice and maxPrice. any variants for filling these Fields are possible and according to it the DB request mechanism will be a bit different.
+ there are two fields minPrice and maxPrice. any variants for filling these
+  fields are possible and according to it the DB request mechanism will be a bit different.
 
- The searching process is fullfiled by Query Builders, through Repository Design pattern, no ActiveRecord approach at all.
+ The searching process is fullfiled by Query Builders, through Repository
+ Design pattern, no ActiveRecord approach at all.
 
- the container binding and acording to it implementation of 5th Solid principles is actualized also.
+ the container binding and acording to it implementation of 5th Solid principles
+ is actualized also.
 
  migration, factory, seeder are used.
 
@@ -31,9 +36,14 @@ go to http://localhost
 
  In my opinion, the architecture is good designed.
 
-Ajax request is used, exactly fetch(). no complete reload of page. the query results are returned from server to special div to be presented.
+Ajax request is used, exactly fetch(). no complete reload of page. the query
+results are returned from server to special div to be presented.
 
-Message system is represented. If request is successful and the datas are return successful y, is the success message.
+Message system is represented. If request is successful and the datas are return
+successfully, is the success message.
 if request is failed from some reasons, so it is an alarm message.
+
+check if all inputs are empty - throw validation Exception, at least one input
+field should have a value
 
 front end is implemented on plain js and bootstap css file.
