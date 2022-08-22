@@ -70,12 +70,11 @@ class Handler extends ExceptionHandler
                     "data" =>[],
                     "utilities" =>[
                         "success" => false,
-                        "message" => "All Fields are empty!!!"
+                        "message" => $e->getMessage()
                      ]
                 ],
             400);
         }
-
 
         return parent::render($request, $e);
     }

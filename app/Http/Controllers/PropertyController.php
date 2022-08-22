@@ -9,12 +9,12 @@ use App\Interfaces\PropertyRepositoryInterface;
 
 class PropertyController extends Controller
 {
-    public function __construct(private PropertyRepositoryInterface $propertyRepository) {}
+    public function __construct( private PropertyRepositoryInterface $propertyRepository ) {}
 
-    public function search(): PropertyCollection
+    public function search(Request $request): PropertyCollection
     {
       if($this->checkIfEmptyAllInputs())  throw ValidationException::withMessages([
-          'Error' => 'all fields are empty!'
+          'Error' => 'All fields are empty!'
       ]);
 
         $items = $this->propertyRepository->search();
