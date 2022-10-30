@@ -12,7 +12,7 @@
     <body class="antialiased">
 
     <div id="app" class="container">
-        <form id="searchForm" method="POST" action="/api/search" class="row g-3>
+        <form id="searchForm" method="POST" action="/api/search" class="row g-3">
             @csrf
             <div class="col-12">
                 <label for="Name" class="form-label">Name</label>
