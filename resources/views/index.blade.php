@@ -7,11 +7,11 @@
         <title>Laravel</title>
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-        @vite('resources/js/app.js')
+       
     </head>
     <body class="antialiased">
 
-    <div class="container">
+    <div id="app" class="container">
         <form id="searchForm" method="POST" action="/api/search" class="row g-3>
             @csrf
             <div class="col-12">
@@ -60,30 +60,30 @@
 
         <div id="results">
 
-            <div id="resultsMessage" class="alert d-none my-2" role="alert">
-
-            </div>
-
-                <table id="resultsTable" class="table table-striped d-none">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Price</th>
-                      <th scope="col">Bedrooms</th>
-                      <th scope="col">Bathrooms</th>
-                      <th scope="col">Storeys</th>
-                      <th scope="col">Garages</th>
-                    </tr>
-                  </thead>
-                  <tbody id="resultsOutput">
-                  </tbody>
-                </table>
+            <div id="resultsMessage" class="alert d-none my-2" role="alert"></div>
 
         </div>
 
+        <table id="resultsTable" class="table table-striped d-none">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Bedrooms</th>
+                <th scope="col">Bathrooms</th>
+                <th scope="col">Storeys</th>
+                <th scope="col">Garages</th>
+            </tr>
+            </thead>
+            <tbody id="resultsOutput">
+            </tbody>
+        </table>
+
+    </div>
+
     </body>
 
-{{--    <script src="/main.js"></script>--}}
+    @vite('resources/js/app.js')
 
 </html>
