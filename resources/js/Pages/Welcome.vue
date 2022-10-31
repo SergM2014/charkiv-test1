@@ -1,20 +1,41 @@
-<script setup>
-import { Head, Link } from '@inertiajs/inertia-vue3';
+<script>
+import { Head, useForm } from '@inertiajs/inertia-vue3';
 
-defineProps({
-   
-})
+export default {
+
+components: { Head, useForm },
+data() {
+    return{
+            modal: false,
+            results: false,
+            form: useForm({
+                name: '',
+                minPrice: '',
+                maxPrice: '',
+                bedrooms: '',
+                bathrooms: '',
+                storeys: '',
+                garages:''
+            })
+        }
+    },
+    methods: {
+        submit(){
+            this.form.post('/api/search', this.form)
+        }
+    }
+}
 </script>
 
 <template>
     <Head title="Welcome" />
 
     <div id="app" class="container">
-        <form id="searchForm" method="POST" action="/api/search" class="row g-3">
+        <form id="searchForm" class="row g-3" @submit.prevent="submit">
            
             <div class="col-12">
                 <label for="Name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="Name"  name="name">
+                <input type="text" class="form-control" id="Name"  name="name" >
                 <div  class="form-text">Put a name</div>
             </div>
 
@@ -53,16 +74,16 @@ defineProps({
                 <div  class="form-text">Put a number of Garages</div>
             </div>
 
-            <button type="button" id="submitSearch" class="btn btn-primary">Submit</button>
+            <button type="submit" :disabled="form.processing" class="btn btn-primary">Submit</button>
         </form>
 
-        <div id="results">
+        <div id="results" v-show="modal">
 
-            <div id="resultsMessage" class="alert d-none my-2" role="alert"></div>
+            <div id="resultsMessage" class="alert  my-2" role="alert"></div>
 
         </div>
 
-        <table id="resultsTable" class="table table-striped d-none">
+        <table id="resultsTable" v-show="results" class="table table-striped ">
             <thead>
             <tr>
                 <th scope="col">#</th>
