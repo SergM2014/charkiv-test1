@@ -4,7 +4,8 @@ import { reactive, ref } from "vue";
 import axios from 'axios';
 
 let showModal =  ref(false);
-let results = ref(false);
+let showResults = ref(false);
+let resultsOutput = ref('');
 let modalMessage = ref('');
 let form = reactive ({
     name: '',
@@ -24,11 +25,37 @@ let submit = () => {
         withCredentials:true,
         data: form
     })
-    .then(response => console.log(response.data))
+    .then(response => {
+let resultsOutputblock = document.getElementById('resultsOutputblock')
+        // console.log(response.data)
+        showResults.value = true;
+
+        let data = response.data.data;
+// console.log(data)
+        let counter=1;
+            for(let item of data) {
+// console.log(item)
+                let rowElement = document.createElement('tr');
+
+                rowElement.innerHTML =
+                    `<th scope="row">${counter++}</th>
+            		 <td>${item.name}</td>
+  				       <td>${item.price}</td>
+        				 <td>${item.bedrooms}</td>
+        			  	<td>${item.bathrooms}</td>
+        			  	<td>${item.storeys}</td>
+        		  		<td>${item.garages}</td>`
+
+                resultsOutputBlock.appendChild(rowElement);
+            }
+
+       // resultsOutput.value = response.data.data;
+    }
+)
     .catch(errors => {let json = errors.response.data;
         modalMessage.value = json.utilities.message;
         showModal.value = true;
-        console.log(showModal, modalMessage)
+        showResults.value = false;
     })
 
         
@@ -92,7 +119,7 @@ let submit = () => {
 
         </div>
 
-        <table  v-show="results" class="table table-striped ">
+        <table  v-show="showResults" class="table table-striped ">
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -104,7 +131,7 @@ let submit = () => {
                 <th scope="col">Garages</th>
             </tr>
             </thead>
-            <tbody id="resultsOutput">
+            <tbody id="resultsOutputBlock">
             </tbody>
         </table>
 
