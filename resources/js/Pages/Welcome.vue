@@ -1,30 +1,39 @@
-<script>
-import { Head, useForm } from '@inertiajs/inertia-vue3';
+<script setup>
+import { Head} from '@inertiajs/inertia-vue3';
+import { reactive, ref } from "vue";
+import axios from 'axios';
 
-export default {
+let showModal =  ref(false);
+let results = ref(false);
+let modalMessage = ref('');
+let form = reactive ({
+    name: '',
+    minPrice: '',
+    maxPrice: '',
+    bedrooms: '',
+    bathrooms: '',
+    storeys: '',
+    garages:'' 
+});
 
-components: { Head, useForm },
-data() {
-    return{
-            modal: false,
-            results: false,
-            form: useForm({
-                name: '',
-                minPrice: '',
-                maxPrice: '',
-                bedrooms: '',
-                bathrooms: '',
-                storeys: '',
-                garages:''
-            })
-        }
-    },
-    methods: {
-        submit(){
-            this.form.post('/api/search', this.form)
-        }
-    }
-}
+let submit = () => { 
+   
+    axios({
+        method: 'post',
+        url:'api/search',
+        withCredentials:true,
+        data: form
+    })
+    .then(response => console.log(response.data))
+    .catch(errors => {let json = errors.response.data;
+        modalMessage.value = json.utilities.message;
+        showModal.value = true;
+        console.log(showModal, modalMessage)
+    })
+
+        
+};
+    
 </script>
 
 <template>
@@ -35,55 +44,55 @@ data() {
            
             <div class="col-12">
                 <label for="Name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="Name"  name="name" >
+                <input type="text" class="form-control" v-model="form.name"  name="name" >
                 <div  class="form-text">Put a name</div>
             </div>
 
             <div class="col-6">
                 <label for="minPrice" class="form-label">min Price</label>
-                <input type="text" class="form-control" id="minPrice" name="minPrice">
+                <input type="text" class="form-control" v-model="minPrice" name="minPrice">
                 <div  class="form-text">Put min Price</div>
             </div>
             <div class="col-6">
                 <label for="maxPrice" class="form-label">maxPrice</label>
-                <input type="text" class="form-control" id="maxPrice" name="maxPrice">
+                <input type="text" class="form-control" v-model="maxPrice" name="maxPrice">
                 <div  class="form-text">Put max Price</div>
             </div>
 
             <div class="col-12">
                 <label for="bedrooms" class="form-label">Bedrooms</label>
-                <input type="text" class="form-control" id="bedrooms" name="bedrooms">
+                <input type="text" class="form-control" iv-model="bedrooms" name="bedrooms">
                 <div  class="form-text">Put a number of bedrooms</div>
             </div>
 
             <div class="col-12">
                 <label for="bathrooms" class="form-label">Bathrooms</label>
-                <input type="text" class="form-control" id="bathrooms" name="bathrooms" >
+                <input type="text" class="form-control" v-model="bathrooms" name="bathrooms" >
                 <div  class="form-text">Put a number of bathrooms</div>
             </div>
 
             <div class="col-12">
                 <label for="storeys" class="form-label">Storeys</label>
-                <input type="text" class="form-control" id="storeys" name="storeys" >
+                <input type="text" class="form-control" v-model="storeys" name="storeys" >
                 <div  class="form-text">Put a number of Storeys</div>
             </div>
 
             <div class="col-12">
                 <label for="garages" class="form-label">Garages</label>
-                <input type="text" class="form-control" id="garages" name="garages" >
+                <input type="text" class="form-control" v-model="garages" name="garages" >
                 <div  class="form-text">Put a number of Garages</div>
             </div>
 
-            <button type="submit" :disabled="form.processing" class="btn btn-primary">Submit</button>
+            <button type="submit"  class="btn btn-primary">Submit</button>
         </form>
 
-        <div id="results" v-show="modal">
+        <div v-show="showModal">
 
-            <div id="resultsMessage" class="alert  my-2" role="alert"></div>
+            <div  class="alert  my-2" role="alert">{{ modalMessage}}</div>
 
         </div>
 
-        <table id="resultsTable" v-show="results" class="table table-striped ">
+        <table  v-show="results" class="table table-striped ">
             <thead>
             <tr>
                 <th scope="col">#</th>
