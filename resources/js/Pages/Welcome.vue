@@ -120,7 +120,12 @@ let submit = () => {
 
         </div>
         
-        <result-block v-if="Object.keys(resultsOutput).length" :results="resultsOutput.value" ></result-block>
+        <result-block 
+            v-if="Object.keys(resultsOutput).length" 
+            :results="resultsOutput.value" 
+            
+        >
+    </result-block>
         
 
     </div>
