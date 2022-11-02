@@ -8,31 +8,30 @@ export default {
 </script>
 
 <template>
-<h2>Hello, this is result block!!!</h2>
-<table   class="table table-striped ">
-    <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Price</th>
-        <th scope="col">Bedrooms</th>
-        <th scope="col">Bathrooms</th>
-        <th scope="col">Storeys</th>
-        <th scope="col">Garages</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr  v-for="(item, index )  in results" :key="item.id" >
-        <th>{{index+1}}</th>
-        <td>{{item.name}}</td>
-        <td>{{item.price}}</td>
-        <td>{{item.bedrooms}}</td>
-        <td>{{item.bathrooms}}</td>
-        <td>{{item.storeys}}</td>
-        <td>{{item.garages}}</td>
-    </tr>
-           
-    </tbody>
-</table>
+   
+    <table   class="table table-striped ">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Bedrooms</th>
+                <th scope="col">Bathrooms</th>
+                <th scope="col">Storeys</th>
+                <th scope="col">Garages</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr  v-for="(item, index )  in results" :key="item.id" >
+                <th>{{index+1}}</th>
+                <td>{{item.name}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.bedrooms}}</td>
+                <td>{{item.bathrooms}}</td>
+                <td>{{item.storeys}}</td>
+                <td>{{item.garages}}</td>
+            </tr>    
+        </tbody>
+    </table>
 
 </template>

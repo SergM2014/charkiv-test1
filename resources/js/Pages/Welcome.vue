@@ -1,8 +1,9 @@
 <script setup>
-import { Head} from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/inertia-vue3';
 import { reactive, ref } from "vue";
 import axios from 'axios';
 import ResultBlock from '@/Pages/ResultBlock.vue';
+import Modal from '@/Pages/Modal.vue';
 
 let showModal =  ref(false);
 let resultsOutput = reactive({});
@@ -26,42 +27,15 @@ let submit = () => {
         data: form
     })
     .then(response => {
-        let resultsOutputblock = document.getElementById('resultsOutputblock')
-    
         resultsOutput.value = response.data.data;
-
-        // let data = response.data.data;
-        
-        // let counter=1;
-        //     for(let item of data) {
-
-        //         let rowElement = document.createElement('tr');
-
-        //         rowElement.innerHTML =
-        //             `<th scope="row">${counter++}</th>
-        //     		 <td>${item.name}</td>
-  		// 		       <td>${item.price}</td>
-        // 				 <td>${item.bedrooms}</td>
-        // 			  	<td>${item.bathrooms}</td>
-        // 			  	<td>${item.storeys}</td>
-        // 		  		<td>${item.garages}</td>`
-
-        //         resultsOutputBlock.appendChild(rowElement);
-            // }
-
-       // resultsOutput.value = response.data.data;
-    }
-)
-    // .catch(errors => {
-    //     let json = errors.response.data;
-    //     modalMessage.value = json.utilities.message;
-    //     showModal.value = true;
-    //     // showResults.value = false;
-    // })
-
-        
+        showModal.value = false;
+    })
+    .catch(errors => {
+        let json = errors.response.data;
+        modalMessage.value = json.utilities.message;
+        showModal.value = true;
+    })    
 };
-    
 </script>
 
 <template>
@@ -114,20 +88,10 @@ let submit = () => {
             <button type="submit"  class="btn btn-primary">Submit</button>
         </form>
 
-        <div v-show="showModal">
-
-            <div  class="alert  my-2" role="alert">{{ modalMessage}}</div>
-
-        </div>
+        <modal v-if="showModal" :message="modalMessage"></modal>
         
-        <result-block 
-            v-if="Object.keys(resultsOutput).length" 
-            :results="resultsOutput.value" 
-            
-        >
-    </result-block>
+        <result-block v-if="Object.keys(resultsOutput).length" :results="resultsOutput.value" ></result-block>
         
-
     </div>
    
 </template>
