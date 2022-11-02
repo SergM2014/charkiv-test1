@@ -5,7 +5,7 @@ import ResultBlock from '@/Pages/ResultBlock.vue';
 import Modal from '@/Pages/Modal.vue';
 
 export default {
-    components: {Head,ResultBlock, Modal, axios},
+    components: {Head,ResultBlock, Modal},
     data() {
         return {
             showModal: false,
@@ -38,6 +38,7 @@ export default {
                 let json = errors.response.data;
                 this.modalMessage = json.utilities.message;
                 this.showModal = true;
+                this.resultsOutput = {};
             })    
         }
     }

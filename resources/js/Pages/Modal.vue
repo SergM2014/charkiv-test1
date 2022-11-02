@@ -1,8 +1,8 @@
 <script>
-export default {
-    props: {
-        message: String,
-    }    
+    export default {
+        props: {
+            message: String,
+        }    
 }
 </script>
 
