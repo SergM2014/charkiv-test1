@@ -4,11 +4,9 @@ export default {
         results: Object,
     }    
 }
-
 </script>
 
 <template>
-   
     <table   class="table table-striped ">
         <thead>
             <tr>
@@ -33,5 +31,4 @@ export default {
             </tr>    
         </tbody>
     </table>
-
 </template>

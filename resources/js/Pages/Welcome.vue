@@ -1,41 +1,47 @@
-<script setup>
+<script>
 import { Head } from '@inertiajs/inertia-vue3';
-import { reactive, ref } from "vue";
 import axios from 'axios';
 import ResultBlock from '@/Pages/ResultBlock.vue';
 import Modal from '@/Pages/Modal.vue';
 
-let showModal =  ref(false);
-let resultsOutput = reactive({});
-let modalMessage = ref('');
-let form = reactive ({
-    name: '',
-    minPrice: '',
-    maxPrice: '',
-    bedrooms: '',
-    bathrooms: '',
-    storeys: '',
-    garages:'' 
-});
-
-let submit = () => { 
-   
-    axios({
-        method: 'post',
-        url:'api/search',
-        withCredentials:true,
-        data: form
-    })
-    .then(response => {
-        resultsOutput.value = response.data.data;
-        showModal.value = false;
-    })
-    .catch(errors => {
-        let json = errors.response.data;
-        modalMessage.value = json.utilities.message;
-        showModal.value = true;
-    })    
-};
+export default {
+    components: {Head,ResultBlock, Modal, axios},
+    data() {
+        return {
+            showModal: false,
+            resultsOutput: {},
+            modalMessage: '',
+            form :{
+                name: '',
+                minPrice: '',
+                maxPrice: '',
+                bedrooms: '',
+                bathrooms: '',
+                storeys: '',
+                garages:'' 
+            }
+        }
+    },
+    methods: {
+        submit(){ 
+            axios({
+                method: 'post',
+                url:'api/search',
+                withCredentials:true,
+                data: this.form
+            })
+            .then(response => {
+                this.resultsOutput = response.data.data;
+                this.showModal = false;
+            })
+            .catch(errors => {
+                let json = errors.response.data;
+                this.modalMessage = json.utilities.message;
+                this.showModal = true;
+            })    
+        }
+    }
+}
 </script>
 
 <template>
@@ -90,7 +96,7 @@ let submit = () => {
 
         <modal v-if="showModal" :message="modalMessage"></modal>
         
-        <result-block v-if="Object.keys(resultsOutput).length" :results="resultsOutput.value" ></result-block>
+        <result-block v-if="Object.keys(resultsOutput).length" :results="resultsOutput" ></result-block>
         
     </div>
    
