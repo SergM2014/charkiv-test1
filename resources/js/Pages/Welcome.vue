@@ -2,10 +2,10 @@
 import { Head} from '@inertiajs/inertia-vue3';
 import { reactive, ref } from "vue";
 import axios from 'axios';
+import ResultBlock from '@/Pages/ResultBlock.vue';
 
 let showModal =  ref(false);
-let showResults = ref(false);
-let resultsOutput = ref('');
+let resultsOutput = reactive({});
 let modalMessage = ref('');
 let form = reactive ({
     name: '',
@@ -26,37 +26,38 @@ let submit = () => {
         data: form
     })
     .then(response => {
-let resultsOutputblock = document.getElementById('resultsOutputblock')
-        // console.log(response.data)
-        showResults.value = true;
+        let resultsOutputblock = document.getElementById('resultsOutputblock')
+    
+        resultsOutput.value = response.data.data;
 
-        let data = response.data.data;
-// console.log(data)
-        let counter=1;
-            for(let item of data) {
-// console.log(item)
-                let rowElement = document.createElement('tr');
+        // let data = response.data.data;
+        
+        // let counter=1;
+        //     for(let item of data) {
 
-                rowElement.innerHTML =
-                    `<th scope="row">${counter++}</th>
-            		 <td>${item.name}</td>
-  				       <td>${item.price}</td>
-        				 <td>${item.bedrooms}</td>
-        			  	<td>${item.bathrooms}</td>
-        			  	<td>${item.storeys}</td>
-        		  		<td>${item.garages}</td>`
+        //         let rowElement = document.createElement('tr');
 
-                resultsOutputBlock.appendChild(rowElement);
-            }
+        //         rowElement.innerHTML =
+        //             `<th scope="row">${counter++}</th>
+        //     		 <td>${item.name}</td>
+  		// 		       <td>${item.price}</td>
+        // 				 <td>${item.bedrooms}</td>
+        // 			  	<td>${item.bathrooms}</td>
+        // 			  	<td>${item.storeys}</td>
+        // 		  		<td>${item.garages}</td>`
+
+        //         resultsOutputBlock.appendChild(rowElement);
+            // }
 
        // resultsOutput.value = response.data.data;
     }
 )
-    .catch(errors => {let json = errors.response.data;
-        modalMessage.value = json.utilities.message;
-        showModal.value = true;
-        showResults.value = false;
-    })
+    // .catch(errors => {
+    //     let json = errors.response.data;
+    //     modalMessage.value = json.utilities.message;
+    //     showModal.value = true;
+    //     // showResults.value = false;
+    // })
 
         
 };
@@ -118,22 +119,9 @@ let resultsOutputblock = document.getElementById('resultsOutputblock')
             <div  class="alert  my-2" role="alert">{{ modalMessage}}</div>
 
         </div>
-
-        <table  v-show="showResults" class="table table-striped ">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Price</th>
-                <th scope="col">Bedrooms</th>
-                <th scope="col">Bathrooms</th>
-                <th scope="col">Storeys</th>
-                <th scope="col">Garages</th>
-            </tr>
-            </thead>
-            <tbody id="resultsOutputBlock">
-            </tbody>
-        </table>
+        
+        <result-block v-if="Object.keys(resultsOutput).length" :results="resultsOutput.value" ></result-block>
+        
 
     </div>
    
