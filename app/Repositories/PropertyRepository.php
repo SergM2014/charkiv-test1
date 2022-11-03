@@ -41,8 +41,7 @@ class PropertyRepository implements PropertyRepositoryInterface
                 $query->where('price', '<', $maxPrice);
                }
             ) 
-        // ->get();
-      ->paginate(12);
+      ->paginate(10);
 
         return $items;
     }

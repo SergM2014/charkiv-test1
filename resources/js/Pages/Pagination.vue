@@ -21,6 +21,5 @@ export default {
                 'font-bold': link.active
             }"
             >{{link.label}}</Component>
-            <!-- <div v-for="link in links">{{link}}</div> -->
     </div>
 </template>

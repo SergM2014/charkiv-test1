@@ -1,7 +1,7 @@
 <script>
 import Pagination from '@/Pages/Pagination.vue';
 export default {
-    components: {Pagination},
+   components: {Pagination},
     props: {
         results: Object,
     }    
@@ -9,6 +9,7 @@ export default {
 </script>
 
 <template>
+  
     <table   class="table table-striped ">
         <thead>
             <tr>

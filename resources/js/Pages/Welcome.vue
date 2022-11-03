@@ -3,15 +3,22 @@ import { Head } from '@inertiajs/inertia-vue3';
 import axios from 'axios';
 import ResultBlock from '@/Pages/ResultBlock.vue';
 import Modal from '@/Pages/Modal.vue';
+import { useForm } from '@inertiajs/inertia-vue3';
 
 export default {
     components: {Head,ResultBlock, Modal},
+    props: {
+        results: {
+            type: Object,
+            default: {}
+        }
+    }, 
     data() {
         return {
             showModal: false,
             resultsOutput: {},
             modalMessage: '',
-            form :{
+            form : useForm({
                 name: '',
                 minPrice: '',
                 maxPrice: '',
@@ -19,28 +26,29 @@ export default {
                 bathrooms: '',
                 storeys: '',
                 garages:'' 
-            }
+            })
         }
     },
     methods: {
         submit(){ 
-            axios({
-                method: 'post',
-                url:'api/search',
-                withCredentials:true,
-                data: this.form
-            })
-            .then(response => {
-                this.resultsOutput = response.data;
-                this.showModal = false;
+            // axios({
+            //     method: 'post',
+            //     url:'api/search',
+            //     withCredentials:true,
+            //     data: this.form
+            // })
+            // .then(response => {
+            //     // this.resultsOutput = response.data;
+            //     // this.showModal = false;
 
-            })
-            .catch(errors => {
-                let json = errors.response.data;
-                this.modalMessage = json.utilities.message;
-                this.showModal = true;
-                this.resultsOutput = {};
-            })    
+            // })
+            // .catch(errors => {
+            //     let json = errors.response.data;
+            //     this.modalMessage = json.utilities.message;
+            //     this.showModal = true;
+            //     this.resultsOutput = {};
+            // })   
+            this.form.post('api/search', this.form,) 
         }
     }
 }
@@ -98,8 +106,7 @@ export default {
 
         <modal v-if="showModal" :message="modalMessage"></modal>
        
-        <result-block v-if="Object.keys(resultsOutput).length" :results="resultsOutput" ></result-block>
-        
+        <result-block v-if="Object.keys(results).length" :results="results" ></result-block>
     </div>
    
 </template>
