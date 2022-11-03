@@ -31,8 +31,9 @@ export default {
                 data: this.form
             })
             .then(response => {
-                this.resultsOutput = response.data.data;
+                this.resultsOutput = response.data;
                 this.showModal = false;
+
             })
             .catch(errors => {
                 let json = errors.response.data;
@@ -96,7 +97,7 @@ export default {
         </form>
 
         <modal v-if="showModal" :message="modalMessage"></modal>
-        
+       
         <result-block v-if="Object.keys(resultsOutput).length" :results="resultsOutput" ></result-block>
         
     </div>

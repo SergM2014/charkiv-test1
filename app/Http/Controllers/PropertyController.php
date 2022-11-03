@@ -18,10 +18,12 @@ class PropertyController extends Controller
       ]);
 
         $items = $this->propertyRepository->search();
-
+ 
+//var_dump($items); die();
         if($items->isEmpty()) { $success = false; $message = 'Failure! Nothing found!'; };
 
-        return (new PropertyCollection($items))
+         return (new PropertyCollection($items))
+    
             ->additional([
                     'utilities' => [
                         'success' => $success ??= true,

@@ -1,5 +1,7 @@
 <script>
+import Pagination from '@/Pages/Pagination.vue';
 export default {
+    components: {Pagination},
     props: {
         results: Object,
     }    
@@ -20,7 +22,7 @@ export default {
             </tr>
         </thead>
         <tbody>
-            <tr  v-for="(item, index )  in results" :key="item.id" >
+            <tr  v-for="(item, index )  in results.data" :key="item.id" >
                 <th>{{index+1}}</th>
                 <td>{{item.name}}</td>
                 <td>{{item.price}}</td>
@@ -31,4 +33,6 @@ export default {
             </tr>    
         </tbody>
     </table>
+    
+    <pagination :links="results.meta.links"></pagination>
 </template>

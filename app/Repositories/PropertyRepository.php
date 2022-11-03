@@ -8,7 +8,7 @@ use App\Interfaces\PropertyRepositoryInterface;
 
 class PropertyRepository implements PropertyRepositoryInterface
 {
-    public function search(): Collection
+    public function search()//: Collection
     {
         $datas = $this->handleRequest();
         $conjuctions = $this->handleConjuctions($datas);
@@ -41,7 +41,8 @@ class PropertyRepository implements PropertyRepositoryInterface
                 $query->where('price', '<', $maxPrice);
                }
             ) 
-        ->get();
+        // ->get();
+      ->paginate(12);
 
         return $items;
     }
